@@ -4,17 +4,18 @@
 
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-dashboard"></i> My Dashboard</h1>
+            <h1><i class="fa fa-dashboard"></i> My Dashboard </h1>
+            <p>{{ $default['time']->toDayDateTimeString()}}</p>
         </div>
     </div>
     <div class="row">
         
         <div class="col-sm-3">
                 <div class="dashboard-widgets">
-                <h5>Overall Projects</h5>
-                 <div class="progress">
-				  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"style="width:40%">
-				    <span>3/10 Complete</span>
+                <h4>Overall Projects</h4>
+                 <div>
+				  <div>
+				  	<h5>18</h5>
 				  </div>
 				</div>
 				 
@@ -22,10 +23,10 @@
         </div>
         <div class="col-sm-3">
         	<div class="dashboard-widgets">
-            <h5>In Progress</h5>
-                 <div class="progress">
-				  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"style="width:85%">
-				    <span>23/25 Complete</span>
+            <h4>In Progress</h4>
+                 <div>
+				  <div>
+				    <h5>5</h5>
 				  </div>
 				</div>
         </div>
@@ -34,10 +35,10 @@
     </div>
     <div class="col-sm-3">
         	<div class="dashboard-widgets">
-            <h5>Converted Leads</h5>
-                 <div class="progress">
-				  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"style="width:50%">
-				    <span>2/5 Complete</span>
+            <h4>Completed</h4>
+                 <div>
+				  <div>
+				    <h5>13</h5>
 				  </div>
 				</div>
         </div>
@@ -46,10 +47,10 @@
     </div>
     <div class="col-sm-3">
         	<div class="dashboard-widgets">
-            <h5>To Do Items</h5>
-                 <div class="progress">
-				  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"style="width:20%">
-				    <span>1/5 Complete</span>
+            <h4>To Do Items</h4>
+                 <div>
+				  <div>
+				    <h5>3</h5>
 				  </div>
 				</div>
         </div>
@@ -202,21 +203,22 @@
 	<div class="row">
 		<div class="col">
 			<ul class="timeline">
-				@foreach ($default['activity'] as $activity)
+				@foreach ($default['activity']->take(20) as $activity)
 					<li>
-						@if($activity->description_key == 'project_activity_added_team_member') 
-							<a target="_blank" href="https://www.totoprayogo.com/#"><p><b>{{ $activity->fullname }}</b></a> Added Team Member.</p>
+						@if($activity->description_key == 'project_activity_added_team_member')
+							<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b> {{ $activity->fullname }}</b> Added Team Member.</p>
 						 @elseif($activity->description_key == 'project_activity_created')
-						<a target="_blank" href="https://www.totoprayogo.com/#"><p><b>{{ $activity->fullname }}</b></a> Created New Project.</p>
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Created New Project.</p>
 						@endif
 					</li>
-				@endforeach
+					@endforeach
 			</ul>
 		</div>
 	</div>
 </div>
 				</div>
         </div>
+
     
 
     <div class="col-sm-6">

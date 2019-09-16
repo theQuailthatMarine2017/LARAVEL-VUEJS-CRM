@@ -17,9 +17,9 @@ class DashboardController extends Controller
 
     	$members_projects = DB::table('tblprojectmembers')->where('staff_id', $data)->value('project_id');
 
-    	$current_time = Carbon::now();
+    	$current_time = Carbon::now('Africa/Nairobi');
 
-    	$project_activity = DB::table('tblprojectactivity')->get()->take(5);
+    	$project_activity = DB::table('tblprojectactivity')->latest()->get();
 
     	if (!empty($members_projects)) {
 
