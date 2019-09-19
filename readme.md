@@ -8,7 +8,7 @@ TO use this project follow below instructions
 - Create a new database in mysql and import crm.sql file to it
 - In project folder root in terminal type command 'Composer Install'
 - Next type command 'nmp install'
-- Chech .env file config are set correctly.
+- Chech .env file config are set correctly. Change DB username and password to the one you set when created the DATABASE.
 - use php artisan serve to start development server and view project
 - In case of problems email ronymarinequail@hotmail.com
 
