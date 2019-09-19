@@ -150,12 +150,38 @@
 	<div class="row">
 		<div class="col">
 			<ul class="timeline">
-				@foreach ($default['activity']->take(20) as $activity)
+				@foreach ($default['activity']->take(10) as $activity)
 					<li>
 						@if($activity->description_key == 'project_activity_added_team_member')
 							<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b> {{ $activity->fullname }}</b> Added Team Member.</p>
 						 @elseif($activity->description_key == 'project_activity_created')
 						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Created New Project.</p>
+						@elseif($activity->description_key == 'project_activity_task_marked_complete')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Marked Task As Complete.</p>
+						@elseif($activity->description_key == 'project_activity_task_marked_uncomplete')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Changed Task From Complete to Uncomplete.</p>
+						@elseif($activity->description_key == 'not_project_activity_task_status_changed')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Changed Task Status.</p>
+						@elseif($activity->description_key == 'project_activity_created_discussion')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Created Discussion.</p>
+						@elseif($activity->description_key == 'project_activity_commented_on_discussion')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Commented On Discussion.</p>
+						@elseif($activity->description_key == 'project_activity_new_task_assignee')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Assigned A New Task.</p>
+						@elseif($activity->description_key == 'project_activity_uploaded_file')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Uploaded File.</p>
+						@elseif($activity->description_key == 'project_activity_updated')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Updated Project.</p>
+						@elseif($activity->description_key == 'project_activity_task_assignee_removed')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Removed Task.</p>
+						@elseif($activity->description_key == 'project_activity_project_file_removed')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Removed File From Project.</p>
+						@elseif($activity->description_key == 'project_marked_as_finished')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Marked Project As Complete.</p>
+						@elseif($activity->description_key == 'project_activity_marked_all_tasks_as_complete')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Marked All Tasks Complete.</p>
+						@elseif($activity->description_key == 'project_activity_new_task_attachment')
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> New Attachment For Task.</p>
 						@endif
 					</li>
 					@endforeach
