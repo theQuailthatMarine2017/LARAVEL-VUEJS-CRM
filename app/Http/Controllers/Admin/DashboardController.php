@@ -19,7 +19,38 @@ class DashboardController extends Controller
 
     	$current_time = Carbon::now('Africa/Nairobi');
 
+        $to_do = DB::table('tbltodoitems')->where('staffid', $data)->get();
+
+        $total_projects = DB::table('tblprojects')->get();
+
+        $tasks_assigned = DB::table('tblstafftaskassignees')->where('staffid', $data)->get();
+
+        $completed_projects = DB::table('tblprojects')->whereNotNull('date_finished')->get();
+
+        $in_progress_projects = DB::table('tblprojects')->whereNull('date_finished')->get();
+
     	$project_activity = DB::table('tblprojectactivity')->latest()->get();
+
+        // TASKS - IF RECIEVED OBJECTS FOR USER MORE THAN ONE COUNT LOOP THROUGH TASKS ASSIGNED TO GET STAFF IF OF ADDED_FROM FIELD
+
+        $details = [];
+        $asigner = [];
+
+        foreach ($tasks_assigned as $tasks) {
+
+            $task_details = DB::table('tblstafftasks')->where('id', $tasks->taskid)->get();
+
+            $assigner = DB::table('tblstaff')->where('staffid', $tasks->assigned_from)->value('firstname');
+
+            $task_details['from'] = $assigner;
+
+            array_push($details , $task_details);
+            
+
+        }
+
+        
+        
 
     	if (!empty($members_projects)) {
 
@@ -44,7 +75,7 @@ class DashboardController extends Controller
     		$not_member = 'You Are Not Invloved In Any Projects!';
     		$test = 'Another data';
 
-    		return view('admin.dashboard.index')->with('default', ['not_member' => $not_member, 'activity' => $project_activity, 'time' => $current_time]);
+    		return view('admin.dashboard.index')->with('default', ['not_member' => $not_member, 'activity' => $project_activity, 'time' => $current_time, 'total_projects' => $total_projects, 'complete' => $completed_projects, 'in_progress' => $in_progress_projects, 'todo' => $to_do, 'tasks' => $details,'number' => $tasks_assigned, 'task_from' => $asigner]);
     	}
 
     	

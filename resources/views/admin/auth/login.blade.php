@@ -13,10 +13,10 @@
     <div class="cover"></div>
 </section>
 <section class="login-content">
-    <div class="logo">
-        <h2>The Kenyan Wallstreet</h2>
-        <h3>The Thinking Behind The Investor</h3>
-    </div>
+    
+        <h2 style="color:white">The Kenyan Wallstreet</h2>
+        <h3 style="color:white">The Thinking Behind The Investor</h3>
+
     <div class="login-box">
         <form class="login-form" action="{{ route('admin.login.post') }}" method="POST" role="form">
             @csrf

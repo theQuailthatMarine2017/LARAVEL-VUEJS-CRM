@@ -2452,13 +2452,13 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
   color: #FFF;
-  background-color: #009688;
+  background-color: #3f488f;
   border-color: #009688;
 }
 
 .btn-primary:hover {
   color: #FFF;
-  background-color: #007065;
+  background-color: #3f488f;
   border-color: #00635a;
 }
 
@@ -7480,6 +7480,7 @@ a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {
   bottom: 0;
   left: 0;
   z-index: 1030;
+  background: #3f488f;
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
@@ -11514,8 +11515,8 @@ body .fc {
 
 /*
 Acceptable font-family overrides for individual icons:
-	"Arial", sans-serif
-	"Times New Roman", serif
+  "Arial", sans-serif
+  "Times New Roman", serif
 
 NOTE: use percentage font sizes or else old IE chokes
 */
@@ -11836,7 +11837,7 @@ hr.fc-divider {
 
 .fc-row table {
   /* don't put left/right border on anything within a fake row.
-	   the outer tbody will worry about this */
+     the outer tbody will worry about this */
   border-left: 0 hidden transparent;
   border-right: 0 hidden transparent;
   /* no bottom borders on rows */
@@ -12255,8 +12256,8 @@ a.fc-more:hover {
   filter: alpha(opacity=30);
   /* for IE */
   /* opacity with small font can sometimes look too faded
-	   might want to set the 'color' property instead
-	   making day-numbers bold also fixes the problem */
+     might want to set the 'color' property instead
+     making day-numbers bold also fixes the problem */
 }
 
 /* AgendaView all-day area
@@ -12620,7 +12621,7 @@ be a descendant of the grid when it is being dragged.
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #009688;
+  background-color: #3f488f;
   z-index: 1030;
   padding-right: 15px;
 }
@@ -12643,10 +12644,10 @@ be a descendant of the grid when it is being dragged.
   flex: 1 0 auto;
   color: #fff;
   text-align: center;
-  font-family: 'Niconne';
+  font-family: 'Helvetica';
   padding: 0 15px;
-  font-size: 26px;
-  font-weight: 400;
+  font-size: 15px;
+  font-weight: bolder;
   line-height: 50px;
 }
 
@@ -12657,7 +12658,7 @@ be a descendant of the grid when it is being dragged.
     flex: 0 0 auto;
     display: block;
     width: 230px;
-    background-color: #007d71;
+    background-color: #1d225a;
   }
 }
 
@@ -12843,6 +12844,11 @@ be a descendant of the grid when it is being dragged.
 .app-notification__message {
   line-height: 1.2;
 }
+.dashboard-widget-spacing {
+
+  padding-right: 10px;
+
+}
 
 .app-sidebar {
   position: fixed;
@@ -12853,7 +12859,7 @@ be a descendant of the grid when it is being dragged.
   width: 230px;
   overflow: auto;
   z-index: 10;
-  background-color: #222d32;
+  background-color: #1d225a;
   -webkit-box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.2);
   -webkit-transition: left 0.3s ease, width 0.3s ease;
@@ -13576,7 +13582,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .material-half-bg .cover {
-  background-color: #009688;
+  background-color: #3f488f;
   height: 50vh;
 }
 
@@ -13936,7 +13942,7 @@ be a descendant of the grid when it is being dragged.
 
 .login-content .logo {
   margin-bottom: 40px;
-  font-family: "Niconne";
+  font-family: "Helvetica";
   color: #fff;
 }
 

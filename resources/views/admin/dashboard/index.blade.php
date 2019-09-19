@@ -10,64 +10,55 @@
     </div>
     <div class="row">
         
-        <div class="col-sm-3">
+        <div class="col-sm-4">
                 <div class="dashboard-widgets">
-                <h4>Overall Projects</h4>
+                <h4>Total Projects</h4>
                  <div>
 				  <div>
-				  	<h5>18</h5>
+				  	<h2> {{ $default['total_projects']->count() }}</h2>
 				  </div>
 				</div>
 				 
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
         	<div class="dashboard-widgets">
-            <h4>In Progress</h4>
+            <h4>Projects In Progress</h4>
                  <div>
 				  <div>
-				    <h5>5</h5>
+				    <h2> {{ $default['in_progress']->count() }}</h2>
 				  </div>
 				</div>
         </div>
 
 
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         	<div class="dashboard-widgets">
-            <h4>Completed</h4>
+            <h4>Completed Projects</h4>
                  <div>
 				  <div>
-				    <h5>13</h5>
+				    <h2>{{ $default['complete']->count() }}</h2>
 				  </div>
 				</div>
         </div>
 
 
     </div>
-    <div class="col-sm-3">
-        	<div class="dashboard-widgets">
-            <h4>To Do Items</h4>
-                 <div>
-				  <div>
-				    <h5>3</h5>
-				  </div>
-				</div>
-        </div>
-    </div>
+    
 
     <div class="col-sm-12">
         	<div class="dashboard-widgets">
         	<div class="bs-components">
-            <h4>My Tasks</h4>
+        	
+            <h4>My Tasks </h4>
             <ul class="nav nav-tabs">
-            	<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#newtasks">New Tasks</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#home">Ongoing</a></li>
+            	<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#newtasks">Tasks</a></li>
+                
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile">Completed</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#overview">Overview</a></li>
             </ul>
             <div class="tab-content">
-
             	<div id="newtasks" class="tab-pane fade active show">
 
 		            <div class="table-responsive">
@@ -81,56 +72,26 @@
 		                  </tr>
 		                </thead>
 		                <tbody>
+		                @foreach( $default['tasks'] as $task => $value)
+		                
 		                  <tr>
-		                    <td>Add Google Docs Functionality</td>
-		                    <td>Eric Jackson</td>
-		                    <td>12/10/2019</td>
+		                    <td> {{ $value[0]->name }}</td>
+		                    <td> {{ $value['from'] }} </td>
+		                    <td> {{ Carbon\Carbon::parse($value[0]->dateadded)->toFormattedDateString() }} </td>
+		                    @if (!is_null($value[0]->datefinished))
 		                    <td><button type="button" class="btn btn-warning btn-sm">Start Task</button></td>
+		                    @elseif (is_null($value[0]->datefinished))
+		                    <td><button type="button" class="btn btn-success btn-sm">Complete</button></td>
+		                    @endif
 		                  </tr>
-		                  <tr>
-		                    <tr>
-		                    <td>Add RSS Fetch Fetch Functionality</td>
-		                    <td>Eric Jackson</td>
-		                    <td>12/10/2019</td>
-		                    <td><button type="button" class="btn btn-warning btn-sm">Start Task</button></td>
-		                  </tr>
-		                  </tr>
+		                  
+		                  @endforeach
 		                </tbody>
 		              </table>
 		            </div>
                  </div>
             
-            	<div id="home" class="tab-pane fade">
-
-		            <div class="table-responsive">
-		              <table class="table">
-		                <thead>
-		                  <tr>
-		                    <th>Task Title</th>
-		                    <th>Assigned By</th>
-		                    <th>Start Date</th>
-		                    <th>Actions</th>
-		                  </tr>
-		                </thead>
-		                <tbody>
-		                  <tr>
-		                    <td>Modify CRM and Add New Features</td>
-		                    <td>Eric Jackson</td>
-		                    <td>12/10/2019</td>
-		                    <td><button type="button" class="btn btn-success btn-sm">Complete</button></td>
-		                  </tr>
-		                  <tr>
-		                    <tr>
-		                    <td>Add Chat Functionality To Other Web Project</td>
-		                    <td>Eric Jackson</td>
-		                    <td>12/10/2019</td>
-		                    <td><button type="button" class="btn btn-success btn-sm">Complete</button></td>
-		                  </tr>
-		                  </tr>
-		                </tbody>
-		              </table>
-		            </div>
-                 </div>
+            	
 
                  <div id="profile" class="tab-pane fade">
             <div class="table-responsive">
@@ -144,35 +105,21 @@
 		                  </tr>
 		                </thead>
 		                <tbody>
-
+		                  @foreach( $default['tasks'] as $task => $value)
+		                  @if (!is_null($value[0]->datefinished))
 		                  <tr>
-		                    <td>Learn Laravel Framework</td>
-		                    <td>Eric Jackson</td>
-		                    <td>12/07/2019</td>
-		                    <td>2/09/2019</td>
+		                    <td>{{ $value[0]->name }}</td>
+		                    <td>{{ $value['from'] }}</td>
+		                    <td>{{ Carbon\Carbon::parse($value[0]->startdate)->toFormattedDateString() }}</td>
+		                    <td> {{ Carbon\Carbon::parse($value[0]->datefinished)->toFormattedDateString() }} </td>
 		                  </tr>
-		                  
-		                   <tr>
-		                    <td>Learn Vue.js Framework</td>
-		                    <td>Eric Jackson</td>
-		                    <td>12/4/2019</td>
-		                    <td>12/11/2019</td>
-		                  </tr>
-
+		                  @endif  
+		                  @endforeach
+		                  @if (is_null($value[0]->datefinished))
 		                  <tr>
-		                    <td>Attend Workshop Meeting and Get SDKs</td>
-		                    <td>Eric Jackson</td>
-		                    <td>10/7/2019</td>
-		                    <td>12/11/2019</td>
+		                  	<td> You Have Not Completed Any Task! </td>
 		                  </tr>
-
-		                  <tr>
-		                    <td>Relax and Enjoy Life</td>
-		                    <td>Eric Jackson</td>
-		                    <td>20/4/2019</td>
-		                    <td>12/10/2019</td>
-		                  </tr>
-		               
+		                  @endif
 		                </tbody>
 		              </table>
 		            </div>
