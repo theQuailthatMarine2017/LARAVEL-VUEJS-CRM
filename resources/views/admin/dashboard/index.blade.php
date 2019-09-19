@@ -181,7 +181,7 @@
 						@elseif($activity->description_key == 'project_activity_marked_all_tasks_as_complete')
 						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Marked All Tasks Complete.</p>
 						@elseif($activity->description_key == 'project_activity_new_task_attachment')
-						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> New Attachment For Task.</p>
+						<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b>{{ $activity->fullname }}</b> Added New Attachment For Task.</p>
 						@endif
 					</li>
 					@endforeach
