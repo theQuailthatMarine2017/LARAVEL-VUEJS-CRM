@@ -7,19 +7,27 @@
         </div>
     </div>
     <ul class="app-menu">
+
+        @if(Auth::user()->admin == 0)
+
         <li>
-            <a class="app-menu__item active" href="#"><i class="app-menu__icon fa fa-dashboard"></i>
+            <a class="app-menu__item" href="{{ route('admin.dashboard') }}"><i class="app-menu__icon fa fa-dashboard"></i>
                 <span class="app-menu__label">Dashboard</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-object-group"></i>
+            <a class="app-menu__item" href="{{ route('admin.projects') }}"><i class="app-menu__icon fa fa-object-group"></i>
                 <span class="app-menu__label">Projects Overview</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-eye"></i>
+            <a class="app-menu__item" href="{{ route('admin.tasks') }}"><i class="app-menu__icon fa fa-eye"></i>
                 <span class="app-menu__label">Tasks</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-calendar"></i>
+                <span class="app-menu__label">Projects / Task Calendar</span>
             </a>
         </li>
         <li>
@@ -34,7 +42,7 @@
         </li>
         <li>
             <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-cogs"></i>
-                <span class="app-menu__label">Goals Tracking</span>
+                <span class="app-menu__label">Staff</span>
             </a>
         </li>
         <li>
@@ -71,10 +79,48 @@
                 <span class="app-menu__label">Knowledge Base</span>
             </a>
         </li>
+        
+
+        @else
+
         <li>
-            <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-cogs"></i>
-                <span class="app-menu__label">Settings</span>
+            <a class="app-menu__item" href="{{ route('admin.dashboard') }}"><i class="app-menu__icon fa fa-dashboard"></i>
+                <span class="app-menu__label">Dashboard</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item" href="{{ route('admin.projects') }}"><i class="app-menu__icon fa fa-object-group"></i>
+                <span class="app-menu__label">Projects Overview</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="{{ route('admin.tasks') }}"><i class="app-menu__icon fa fa-eye"></i>
+                <span class="app-menu__label">Tasks</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-calendar"></i>
+                <span class="app-menu__label">Projects / Task Calendar</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-folder-open-o"></i>
+                <span class="app-menu__label">Google Docs</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-rss"></i>
+                <span class="app-menu__label">RSS Feeds</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-folder"></i>
+                <span class="app-menu__label">Knowledge Base</span>
+            </a>
+        </li>
+        
+
+        @endif
+
     </ul>
 </aside>

@@ -12,6 +12,10 @@ Route::group(['prefix'  =>  'admin'], function () {
         return view('admin.dashboard.index');
     })->name('admin.dashboard');
 
+    Route::get('/projects', 'Admin\ProjectsController@index')->name('admin.projects');
+
+    Route::get('/tasks', 'Admin\TasksController@index')->name('admin.tasks');
+
 	});
 
 });

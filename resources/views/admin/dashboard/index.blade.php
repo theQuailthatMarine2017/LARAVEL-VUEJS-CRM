@@ -2,12 +2,6 @@
 @section('title') Dashboard @endsection
 @section('content')
 
-    <div class="app-title">
-        <div>
-            <h1><i class="fa fa-dashboard"></i> My Dashboard </h1>
-            <p>{{ $default['time']->toDayDateTimeString()}}</p>
-        </div>
-    </div>
     <div class="row">
         
         <div class="col-sm-4">
@@ -62,7 +56,7 @@
             	<div id="newtasks" class="tab-pane fade active show">
 
 		            <div class="table-responsive">
-		              <table class="table">
+		              <table class="table" id="newtasks">
 		                <thead>
 		                  <tr>
 		                    <th>Task Title</th>
@@ -73,27 +67,52 @@
 		                </thead>
 		                <tbody>
 		                @foreach( $default['tasks'] as $task => $value)
-		                
+		                @if (is_null($value[0]->datefinished))
 		                  <tr>
 		                    <td> {{ $value[0]->name }}</td>
-		                    <td> {{ $value['from'] }} </td>
+		                    <td> {{ $value['from_first'] }} {{ $value['from_last'] }} </td>
 		                    <td> {{ Carbon\Carbon::parse($value[0]->dateadded)->toFormattedDateString() }} </td>
-		                    @if (!is_null($value[0]->datefinished))
-		                    <td><button type="button" class="btn btn-warning btn-sm">Start Task</button></td>
-		                    @elseif (is_null($value[0]->datefinished))
-		                    <td><button type="button" class="btn btn-success btn-sm">Complete</button></td>
+		                    @if (is_null($value[0]->startdate))
+		                    <td><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" target="#Modal">Start Task</button></td>
+		                    @elseif (!is_null($value[0]->startdate))
+		                    <td><button type="button" onclick="completeProject(this)" class="btn btn-success btn-sm" data-toggle="modal" target="#myModal">Complete</button></td>
 		                    @endif
 		                  </tr>
-		                  
-		                  @endforeach
-		                </tbody>
-		              </table>
-		            </div>
-                 </div>
-            
-            	
+		                @endif
+		               
+		              </tbody>
 
-                 <div id="profile" class="tab-pane fade">
+                  <div class="modal fade" id="myModal">
+					  <div class="modal-dialog modal-notify modal-info">
+
+					    <!-- Modal content-->
+					    <div class="modal-content">
+					      <div class="modal-body">
+					        <h6>Are You Sure You Want To Mark This Task As Complete?<br><br><h5 class="complete"></h5></h6>
+					      </div>
+					      <div class="modal-footer">
+					      	
+					      	<div class="pop-up-btn">
+							  <a href="#" class="btn btn-success" data-dismiss="modal">Complete</a>
+							  <a href="#" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+							</div>
+						
+					      </div>
+					    </div>
+
+					  </div>
+					</div>       	
+                  
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+         </div>
+
+               <!-- Modal -->
+		
+
+         <div id="profile" class="tab-pane fade">
             <div class="table-responsive">
 		              <table class="table">
 		                <thead>
@@ -105,21 +124,16 @@
 		                  </tr>
 		                </thead>
 		                <tbody>
-		                  @foreach( $default['tasks'] as $task => $value)
+		                  @foreach( $default['tasks'] as $task => $value) 
+		                  <tr>
 		                  @if (!is_null($value[0]->datefinished))
-		                  <tr>
 		                    <td>{{ $value[0]->name }}</td>
-		                    <td>{{ $value['from'] }}</td>
+		                    <td>{{ $value['from_first'] }} {{ $value['from_last'] }}</td>
 		                    <td>{{ Carbon\Carbon::parse($value[0]->startdate)->toFormattedDateString() }}</td>
-		                    <td> {{ Carbon\Carbon::parse($value[0]->datefinished)->toFormattedDateString() }} </td>
-		                  </tr>
-		                  @endif  
-		                  @endforeach
-		                  @if (is_null($value[0]->datefinished))
-		                  <tr>
-		                  	<td> You Have Not Completed Any Task! </td>
-		                  </tr>
+		                    <td>{{ Carbon\Carbon::parse($value[0]->datefinished)->toFormattedDateString() }} </td>
 		                  @endif
+		                  </tr>  
+		                  @endforeach
 		                </tbody>
 		              </table>
 		            </div>
@@ -142,6 +156,108 @@
 			</div>
         </div>
 
+            <div class="col-sm-6">
+        	<div class="dashboard-widgets">
+        	
+            <h4>To Do Items</h4>
+			
+			<ul class="nav nav-tabs">
+            	<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#active">Ongoing</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#complete">Completed</a></li>
+            </ul>
+            <div class="tab-content">
+            <div id="active" class="tab-pane fade active show">
+            <div class="table-responsive">
+
+		              <table class="table">
+		                <thead>
+		                  <tr>
+		                    <th>Title</th>
+		                    <th>Date Added</th>
+		                    <th>Action</th>
+		                  </tr>
+		                </thead>
+		                <tbody>
+		                  @foreach($default['todo'] as $todo => $item)
+		                  @if (is_null($item->datefinished))
+		                  <tr>
+		                  
+		                    <td>{{$item->description}}</td>
+		                    <td>{{Carbon\Carbon::parse($item->dateadded)->toFormattedDateString()}}</td>
+		                    <td><button type="button" class="btn btn-success btn-sm" onclick="completeProject(this)" data-toggle="modal" target="#myModal">Complete</button></td>
+		                    
+		                  </tr>
+		                  @endif
+		                  @endforeach
+		                  
+		                </tbody>
+		              </table>
+		            </div>
+		            <button type="button" class="btn btn-success btn-sm" onclick="addItem()" data-toggle="modal" target="#addItem">Create New Item</button>
+		        </div>
+
+
+		        <div class="modal fade" id="addItem">
+					  <div class="modal-dialog modal-notify modal-info">
+
+					    <!-- Modal content-->
+					    <div class="modal-content">
+					      <div class="modal-body">
+					        <div class="form-group">
+							    <h4>Create To Do Item</h4>
+							    <input type="email" class="form-control" id="email" placeholder="Enter Item Name" class="text-center">
+							  </div>
+					      </div>
+					      <div class="modal-footer">
+					      	
+					      	<div class="pop-up-btn">
+							  <a href="#" class="btn btn-success" data-dismiss="modal">Add Item</a>
+							  <a href="#" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+							</div>
+						
+					      </div>
+					    </div>
+
+					  </div>
+					</div>
+
+		    <div id="complete" class="tab-pane fade">
+            <div class="table-responsive">
+		              <table class="table">
+		                <thead>
+		                  <tr>
+		                    <th>Title</th>
+		                    <th>Date Added</th>
+		                    <th>Date Completed</th>
+		                  </tr>
+		                </thead>
+		                <tbody>
+		                  @foreach($default['todo'] as $todo => $item)
+		                  @if (!is_null($item->datefinished))
+		                  <tr>
+		                  
+		                    <td>{{$item->description}}</td>
+		                    <td>{{Carbon\Carbon::parse($item->dateadded)->toFormattedDateString()}}</td>
+		                    <td>{{Carbon\Carbon::parse($item->datefinished)->toFormattedDateString()}}</td>
+		                    
+		                  </tr>
+		                  @endif
+		                  @endforeach
+		                  
+		                </tbody>
+		              </table>
+		            </div>
+		            
+		        </div>
+
+
+		    </div>
+
+		   
+            	
+			</div>
+        </div>
+
     
     <div class="col-sm-6">
         	<div class="dashboard-widgets">
@@ -150,7 +266,7 @@
 	<div class="row">
 		<div class="col">
 			<ul class="timeline">
-				@foreach ($default['activity']->take(10) as $activity)
+				@foreach ($default['activity']->take(7) as $activity)
 					<li>
 						@if($activity->description_key == 'project_activity_added_team_member')
 							<a target="_blank" href="https://www.totoprayogo.com/#">{{ Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</a><p><b> {{ $activity->fullname }}</b> Added Team Member.</p>
@@ -192,14 +308,36 @@
 				</div>
         </div>
 
+
+	
+    </div>
+
     
 
-    <div class="col-sm-6">
-        	<div class="dashboard-widgets">
-            <h4>Task Calendar</h4>
-                 
-				</div>
-        </div>
-    </div>
+
+
+    <script>
+
+	   function completeProject(button){
+
+	        var tr = button.parentElement.parentElement.cells[0].innerText;
+
+	        $('#myModal').modal('show');
+	        $('.complete').text(tr);
+
+	    }
+
+	    function addItem(){
+
+	        $('#addItem').modal('show');
+
+	    }
+
+
+
+	</script>
+
+	<!-- Page specific javascripts-->
+    
     
 @endsection

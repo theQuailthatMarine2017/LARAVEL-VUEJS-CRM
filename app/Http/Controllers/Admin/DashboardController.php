@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
+use Calendar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,32 @@ class DashboardController extends Controller
     public function index() {
 
     	$data = Auth::user()->staffid;
+
+        $all_tasks = DB::table('tblstafftasks')->get();
+
+        $task_list = [];
+
+        foreach ($all_tasks as $list => $event) {
+            # code...
+            $task_list[] = Calendar::event(
+                $event->name,
+                true,
+                new \DateTime($event->startdate),
+                new \DateTime($event->duedate.' +1 day'),$event->id
+            );
+        }
+
+        $calendar_details = Calendar::addEvents($task_list)->setCallbacks([
+              'themeSystem' => '"bootstrap4"',
+              'eventRender' => 'function(event, element) {
+                element.popover({
+                  animation: true,
+                  html: true,
+                  content: $(element).html(),
+                  trigger: "hover"
+                  });
+                }'
+              ]);
 
     	$members_projects = DB::table('tblprojectmembers')->where('staff_id', $data)->value('project_id');
 
@@ -40,43 +67,23 @@ class DashboardController extends Controller
 
             $task_details = DB::table('tblstafftasks')->where('id', $tasks->taskid)->get();
 
-            $assigner = DB::table('tblstaff')->where('staffid', $tasks->assigned_from)->value('firstname');
+            $assigner_first = DB::table('tblstaff')->where('staffid', $tasks->assigned_from)->value('firstname');
 
-            $task_details['from'] = $assigner;
+            $assigner_last = DB::table('tblstaff')->where('staffid', $tasks->assigned_from)->value('lastname');
+
+            $task_details['from_first'] = $assigner_first;
+
+            $task_details['from_last'] = $assigner_last;
 
             array_push($details , $task_details);
             
 
         }
 
-        
-        
+    	$not_member = 'You Are Not Invloved In Any Projects!';
+        $test = 'Another data';
 
-    	if (!empty($members_projects)) {
-
-    		if ($members_projects->count() > 1) {
-
-    			foreach ($$members_projects as $projects) {
-
-    				$project = DB::table('tblprojects')->where('id', $projects->project_id)->value('name');
-    			
-    			}
-
-    		} else {
-
-    			$project = $project = DB::table('tblprojects')->where('id', $members_projects->project_id)->value('name');
-
-    			return view('admin.dashboard.index', $project);
-
-    		}
-
-    	} else {
-
-    		$not_member = 'You Are Not Invloved In Any Projects!';
-    		$test = 'Another data';
-
-    		return view('admin.dashboard.index')->with('default', ['not_member' => $not_member, 'activity' => $project_activity, 'time' => $current_time, 'total_projects' => $total_projects, 'complete' => $completed_projects, 'in_progress' => $in_progress_projects, 'todo' => $to_do, 'tasks' => $details,'number' => $tasks_assigned, 'task_from' => $asigner]);
-    	}
+        return view('admin.dashboard.index')->with('default', ['not_member' => $not_member, 'activity' => $project_activity, 'time' => $current_time, 'total_projects' => $total_projects, 'complete' => $completed_projects, 'in_progress' => $in_progress_projects, 'todo' => $to_do, 'tasks' => $details,'number' => $tasks_assigned, 'task_from' => $asigner, 'all_tasks' => $all_tasks,'calendar' => $calendar_details]);
 
     	
     }

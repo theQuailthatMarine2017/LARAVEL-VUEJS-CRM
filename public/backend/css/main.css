@@ -5406,6 +5406,7 @@ button.close {
 
 .modal-open {
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .modal {
@@ -5417,12 +5418,14 @@ button.close {
   z-index: 1050;
   display: none;
   overflow: hidden;
+  border-radius: 10px;
   outline: 0;
 }
 
 .modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
+  border-radius: 10px;
 }
 
 .modal-dialog {
@@ -5430,6 +5433,9 @@ button.close {
   width: auto;
   margin: 0.5rem;
   pointer-events: none;
+  vertical-align: middle;
+  align-self: center;
+  border-radius: 10px;
 }
 
 .modal.fade .modal-dialog {
@@ -5441,6 +5447,7 @@ button.close {
   -webkit-transform: translate(0, -25%);
   -ms-transform: translate(0, -25%);
   transform: translate(0, -25%);
+  border-radius: 10px;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
@@ -5448,6 +5455,7 @@ button.close {
     -webkit-transition: none;
     -o-transition: none;
     transition: none;
+    border-radius: 10px;
   }
 }
 
@@ -5455,6 +5463,7 @@ button.close {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
+  border-radius: 10px;
 }
 
 .modal-dialog-centered {
@@ -5469,6 +5478,7 @@ button.close {
 
 .modal-content {
   position: relative;
+  border-radius: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5487,6 +5497,7 @@ button.close {
 
 .modal-backdrop {
   position: fixed;
+  border-radius: 10px;
   top: 0;
   right: 0;
   bottom: 0;
@@ -5526,12 +5537,17 @@ button.close {
 
 .modal-title {
   margin-bottom: 0;
+  text-align: center;
   line-height: 1.5;
 }
 
 .modal-body {
   position: relative;
+  text-align: center;
+  font-weight: bolder;
+  color: white;
   -webkit-box-flex: 1;
+  background: #3f488f;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 1rem;
@@ -5539,6 +5555,7 @@ button.close {
 
 .modal-footer {
   display: -webkit-box;
+  border-radius: 10px;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
@@ -5546,7 +5563,7 @@ button.close {
   align-items: center;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 1rem;
   border-top: 1px solid #e9ecef;
 }
@@ -5571,6 +5588,7 @@ button.close {
   .modal-dialog {
     max-width: 500px;
     margin: 1.75rem auto;
+
   }
   .modal-dialog-centered {
     min-height: calc(100% - (1.75rem * 2));
@@ -12215,6 +12233,10 @@ a.fc-more:hover {
   overflow: hidden;
 }
 
+.pop-up-btn {
+  
+  align-content: center;
+}
 .fc-row.fc-rigid .fc-content-skeleton {
   position: absolute;
   top: 0;
