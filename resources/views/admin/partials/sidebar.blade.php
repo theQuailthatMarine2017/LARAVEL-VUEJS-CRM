@@ -16,6 +16,11 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item" href="{{ route('admin.chats') }}"><i class="app-menu__icon fa fa-dashboard"></i>
+                <span class="app-menu__label">Chats</span>
+            </a>
+        </li>
+        <li>
             <a class="app-menu__item" href="{{ route('admin.projects') }}"><i class="app-menu__icon fa fa-object-group"></i>
                 <span class="app-menu__label">Projects Overview</span>
             </a>

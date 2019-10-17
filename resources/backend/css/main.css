@@ -58,6 +58,14 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.chat-ui {
+  background: #17a2b8;
+}
+
+.chat-ui-sidebar{
+  background: #007bff
+}
+
 @-ms-viewport {
   width: device-width;
 }

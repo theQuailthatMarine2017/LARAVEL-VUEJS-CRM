@@ -16,6 +16,8 @@ Route::group(['prefix'  =>  'admin'], function () {
 
     Route::get('/tasks', 'Admin\TasksController@index')->name('admin.tasks');
 
+    Route::get('/chats', 'Admin\ChatsController@index')->name('admin.chats');
+
 	});
 
 });

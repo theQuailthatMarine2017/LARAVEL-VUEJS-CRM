@@ -1,20 +1,16 @@
 <template>
-    <div>
-    <b-table :hoverable="isHoverable" :paginated="isPaginated" :striped="isStriped" :data="data" :per-page="perPage" :pagination-simple="isPaginationSimple" :pagination-position="paginationPosition" checkable :checkbox-position="checkboxPosition" :header-checkable="headerChecked" :default-sort-direction="sortDirection" default-sort="id" :checked-rows.sync="check">
+	<b-table :hoverable="isHoverable" :paginated="isPaginated" :striped="isStriped" :data="data" :per-page="perPage" :pagination-simple="isPaginationSimple" :pagination-position="paginationPosition" checkable :checkbox-position="checkboxPosition" :header-checkable="headerChecked" :selected.sync="selected" :default-sort-direction="sortDirection" default-sort="todoid" :checked-rows.sync="check">
 
         <template slot-scope="props">
 
-                <b-table-column field="id" label="Task ID" sortable numeric :visible="false">
+                <b-table-column field="todoid" label="Task ID" sortable numeric :visible="false">
                     {{ props.row.id }}
                 </b-table-column>
 
-                <b-table-column field="name" label="Task Title">
-                    {{ props.row.name }}
+                <b-table-column field="name" label="Title">
+                    {{ props.row.description }}
                 </b-table-column>
 
-                <b-table-column field="fullnames" label="Added By">
-                    {{ props.row.fullnames }}
-                </b-table-column>
 
                 <b-table-column field="dateadded" label="Date Created">
                     <span class="tag is-success">
@@ -24,29 +20,28 @@
 
             </template>
 
-        
         <template slot="bottom-left">
-            <b-button @click="markComplete" :disabled="!check.length" type="is-success">Mark Selected As Complete</b-button>
+            <b-button type="is-success" @click="markDone" :disabled="!check.length">Mark Selected As Complete</b-button>
         </template>
+
     </b-table>
-    </div>
 </template>
 
 <script>
-    export default {
+	export default {
         props:{
-            mytasks:{
+            todos:{
                 type:Array
             },
         },
-        data() {
+		data() {
             return {
-                data: this.mytasks,
+                data: this.todos,
+                sortDirection:'desc',
                 isHoverable: true,
+                check: [],
                 isStriped: true,
                 isPaginated:true,
-                check: [],
-                sortDirection:'desc',
                 checkboxPosition: 'right',
                 perPage: 5,
                 isPaginationSimple: false,
@@ -56,7 +51,7 @@
             }
         },
         methods: {
-            markComplete() {
+            markDone() {
                 console.log(this.check)
                 this.$swal({
                   title: 'Are you sure you?',
@@ -77,4 +72,6 @@
             }
         }
     }
+	
+
 </script>
