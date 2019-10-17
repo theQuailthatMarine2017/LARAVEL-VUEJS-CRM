@@ -4,7 +4,7 @@
             <b-input v-model="taskname" :value="title" placeholder="Enter Title Here"></b-input>
         </b-field>
         <b-field label="Task Decription">
-            <b-input :value="description" placeholder="Enter Description Here" maxlength="100" type="textarea"></b-input>
+            <b-input v-model="taskdescription" :value="description" placeholder="Enter Description Here" maxlength="100" type="textarea"></b-input>
         </b-field>
         <b-field label="Select Staff Member To Assign Task">
             <b-select v-model="selectedd" placeholder="Select Staff Member">
@@ -13,7 +13,7 @@
         </b-field>
 
         <b-field label="Select Task Urgency" message="Task Urgency Level Ranges from 1 - 5. Choose According To How Urgent Task Completion is.">
-            <b-slider :min="1" :max="5" :step="1" ticks>
+            <b-slider v-model="urgency":min="1" :max="5" :step="1" :value="slider" ticks>
             </b-slider>
         </b-field>
 
@@ -36,16 +36,19 @@
 				title: '',
 				description: '',
 				taskname:'',
+				taskdescription:'',
+				slider: 1,
+				urgency:null,
 				staff: this.staffmember,
 				selectedd:null,
 			}
 		},
 		methods: {
             createTask() {
-                console.log(this.selectedd)
+            	
                 this.$swal({
-                  title: 'Confirm Create Task?',
-                  text: 'Staff Member Will Be Notified Immediately',
+                  title: 'Confirm Create Task\n' + this.taskname.toUpperCase() + '?',
+                  text: this.selectedd + ' Will Be Notified Immediately.',
                   type: 'question',
                   showCancelButton: true,
                   confirmButtonText: 'Create Task',

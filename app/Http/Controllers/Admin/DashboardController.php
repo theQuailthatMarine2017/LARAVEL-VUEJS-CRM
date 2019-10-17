@@ -65,6 +65,7 @@ class DashboardController extends Controller
             }
         }
 
+
         //GETTING ALL PROJECTS
         $total_projects = DB::table('tblprojects')->get();
 

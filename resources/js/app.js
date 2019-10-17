@@ -62,9 +62,11 @@ Vue.component('widgets', require('./components/WidgetsComponent.vue').default);
 Vue.component('chat-main', require('./components/Chats.vue').default);
 Vue.component('my-tasks', require('./components/MyTasksComponent.vue').default);
 Vue.component('to-do', require('./components/MyTodoComponent.vue').default);
+Vue.component('to-do-complete', require('./components/MyTodoCompleteComponent.vue').default);
 Vue.component('latest-activity', require('./components/LatestProjectActivityComponent.vue').default);
 Vue.component('inprogess-pie', require('./components/InProgressPieChart.vue').default);
 Vue.component('create-task-form', require('./components/CreateTaskComponent.vue').default);
+Vue.component('create-todo-form', require('./components/CreateToDoComponent.vue').default);
 Vue.component('completed-task', require('./components/CompletedTaskTableComponent.vue').default);
 
 /**
